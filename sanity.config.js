@@ -6,7 +6,7 @@ import {schemaTypes} from '@/sanity/schemas'
 export default defineConfig({
   name: 'default',
   title: 'cornmutt',
-
+  basePath: '/studio',
   projectId: 'k8p6uw8a',
   dataset: 'cornmutt-dev',
 

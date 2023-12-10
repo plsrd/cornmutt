@@ -1,10 +1,8 @@
-'no store';
-
 import { defineField } from 'sanity';
 import { filterExercises } from './helpers/filterExercises';
 import { validateSets } from './helpers/validateSets';
-import { RestComponent } from '../components/RestComponent';
-import { SetsComponent } from '../components/SetsComponent';
+import { SetsComponent } from './components/SetsComponent';
+import { RestComponent } from './components/RestComponent';
 
 export const exerciseWithReps = defineField({
   name: 'exerciseWithReps',

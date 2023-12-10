@@ -19,9 +19,9 @@ export const exercise = defineType({
     }),
     defineField({
       name: 'equipment',
-      title: 'Main Equipment',
+      title: 'Equipment',
       description:
-        'Select the main piece of equipment needed for this exercise',
+        'Select the piece of equipment needed for this exercise',
       type: 'reference',
       to: [{ type: 'equipment' }],
     }),
