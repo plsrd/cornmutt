@@ -1,13 +1,5 @@
-export type ParentProps = {
-  _key: string;
-  _type: string;
-  _ref?: string;
-};
-
 export const filterExistingReferences = ({
   parent,
-}: {
-  parent: ParentProps[];
 }) => {
   const existingEntries = parent
     .map(existingEntry => existingEntry._ref)
@@ -18,4 +10,4 @@ export const filterExistingReferences = ({
       existingEntries,
     },
   };
-};
+}

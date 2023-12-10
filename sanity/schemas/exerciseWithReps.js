@@ -65,13 +65,11 @@ export const exerciseWithReps = defineField({
           description: 'Rest time in seconds',
           type: 'number',
           validation: Rule =>
-            Rule.custom((value: number, context) => {
+            Rule.custom((value, context) => {
               const { path, document } = context;
               const [exercises, info] = path || [];
-              // @ts-ignore
               const superSet = document?.[exercises]?.find(
-                // @ts-ignore
-                (exercise: { _key: string }) => exercise?._key == info._key
+                (exercise) => exercise?._key == info._key
               ).superSet;
 
               if (superSet) return true;

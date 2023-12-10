@@ -1,7 +1,6 @@
 // import workoutTimeCalculator from '../components/workoutTimeCalculator';
-import { Workout } from '@/types/schema';
-import { filterExistingReferences } from '../helpers/filterExistingReferences';
-import { defineType, defineField } from 'sanity';
+import {filterExistingReferences} from '../helpers/filterExistingReferences'
+import {defineType, defineField} from 'sanity'
 
 export const workout = defineType({
   name: 'workout',
@@ -12,7 +11,7 @@ export const workout = defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'useBuilderAssistance',
@@ -26,21 +25,21 @@ export const workout = defineType({
       name: 'focus',
       description: 'Select the training focus for this workout.',
       type: 'array',
-      validation: Rule =>
-        Rule.custom((value, { document }) =>
+      validation: (Rule) =>
+        Rule.custom((value, {document}) =>
           document?.useBuilderAssistance &&
           value?.includes('hypertrophy') &&
           value?.includes('strength')
             ? 'Bruh you cannot focus on strength and hypertrophy at the same time. Pick one.'
-            : true
+            : true,
         ),
-      of: [{ type: 'string' }],
+      of: [{type: 'string'}],
       options: {
         list: [
-          { title: 'Hypertrophy', value: 'hypertrophy' },
-          { title: 'Strength', value: 'strength' },
-          { title: 'Conditioning', value: 'conditioning' },
-          { title: 'Mobility', value: 'mobility' },
+          {title: 'Hypertrophy', value: 'hypertrophy'},
+          {title: 'Strength', value: 'strength'},
+          {title: 'Conditioning', value: 'conditioning'},
+          {title: 'Mobility', value: 'mobility'},
         ],
         layout: 'grid',
       },
@@ -54,7 +53,7 @@ export const workout = defineType({
       of: [
         {
           type: 'reference',
-          to: [{ type: 'target' }],
+          to: [{type: 'target'}],
           options: {
             filter: filterExistingReferences,
           },
@@ -70,7 +69,7 @@ export const workout = defineType({
       of: [
         {
           type: 'reference',
-          to: [{ type: 'equipment' }],
+          to: [{type: 'equipment'}],
           options: {
             filter: filterExistingReferences,
           },
@@ -81,7 +80,7 @@ export const workout = defineType({
       name: 'exercises',
       title: 'Exercises',
       type: 'array',
-      of: [{ type: 'exerciseWithReps' }],
+      of: [{type: 'exerciseWithReps'}],
     }),
   ],
-});
+})
