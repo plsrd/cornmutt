@@ -1,6 +1,10 @@
+'no store';
+
 import { ValidationContext, defineField } from 'sanity';
 import { filterExercises } from './helpers/filterExercises';
 import { validateSets } from './helpers/validateSets';
+import { RestComponent } from '../components/RestComponent';
+import { SetsComponent } from '../components/SetsComponent';
 
 export const exerciseWithReps = defineField({
   name: 'exerciseWithReps',
@@ -19,6 +23,12 @@ export const exerciseWithReps = defineField({
       },
     },
     {
+      name: 'superSet',
+      title: 'Superset with next exercise?',
+      description: 'If yes, the next exercise will be performed immediately',
+      type: 'boolean',
+    },
+    {
       name: 'info',
       title: 'Sets/Reps',
       type: 'object',
@@ -29,12 +39,17 @@ export const exerciseWithReps = defineField({
         {
           name: 'sets',
           title: 'Sets',
+          description: 'Sets per exercise',
           type: 'number',
-          validation: Rule => Rule.custom(validateSets),
+          validation: Rule => Rule.custom(validateSets).warning(),
+          components: {
+            input: SetsComponent,
+          },
         },
         {
           name: 'reps',
           title: 'Reps',
+          description: 'Reps per set',
           type: 'number',
           validation: Rule =>
             Rule.min(1)
@@ -47,21 +62,29 @@ export const exerciseWithReps = defineField({
         {
           name: 'restTime',
           title: 'Rest',
+          description: 'Rest time in seconds',
           type: 'number',
           validation: Rule =>
-            Rule.custom((value: number) => {
+            Rule.custom((value: number, context) => {
+              const { path, document } = context;
+              const [exercises, info] = path || [];
+              // @ts-ignore
+              const superSet = document?.[exercises]?.find(
+                // @ts-ignore
+                (exercise: { _key: string }) => exercise?._key == info._key
+              ).superSet;
+
+              if (superSet) return true;
+
               return value >= 30
                 ? true
                 : 'Each exercise should have a rest of at least 30 seconds';
             }),
+          components: {
+            field: RestComponent,
+          },
         },
       ],
-    },
-    {
-      name: 'superSet',
-      title: 'Super Set',
-      description: 'Superset with next exercise?',
-      type: 'boolean',
     },
     {
       name: 'notes',

@@ -15,7 +15,7 @@ import type {
   SanityImageDimensions,
   SanityImagePalette,
   SanityImagePaletteSwatch,
-} from "sanity-codegen";
+} from 'sanity-codegen';
 
 export type {
   SanityReference,
@@ -42,7 +42,7 @@ export type {
  *
  */
 export interface Exercise extends SanityDocument {
-  _type: "exercise";
+  _type: 'exercise';
 
   /**
    * Name — `string`
@@ -85,7 +85,7 @@ export interface Exercise extends SanityDocument {
    * Upload images for this exercise
    */
   demoImage?: {
-    _type: "image";
+    _type: 'image';
     asset: SanityReference<SanityImageAsset>;
     crop?: SanityImageCrop;
     hotspot?: SanityImageHotspot;
@@ -98,7 +98,7 @@ export interface Exercise extends SanityDocument {
  *
  */
 export interface Equipment extends SanityDocument {
-  _type: "equipment";
+  _type: 'equipment';
 
   /**
    * Name — `string`
@@ -114,7 +114,7 @@ export interface Equipment extends SanityDocument {
  *
  */
 export interface Target extends SanityDocument {
-  _type: "target";
+  _type: 'target';
 
   /**
    * Name — `string`
@@ -130,7 +130,7 @@ export interface Target extends SanityDocument {
  *
  */
 export interface Program extends SanityDocument {
-  _type: "program";
+  _type: 'program';
 
   /**
    * Program Name — `string`
@@ -167,7 +167,7 @@ export interface Program extends SanityDocument {
  *
  */
 export interface Workout extends SanityDocument {
-  _type: "workout";
+  _type: 'workout';
 
   /**
    * Title — `string`
@@ -215,7 +215,7 @@ export interface Workout extends SanityDocument {
 export type Content = Array<SanityKeyed<SanityBlock>>;
 
 export type ExerciseWithReps = {
-  _type: "exerciseWithReps";
+  _type: 'exerciseWithReps';
   /**
    * Exercise — `reference`
    *
@@ -229,7 +229,7 @@ export type ExerciseWithReps = {
    *
    */
   info?: {
-    _type: "info";
+    _type: 'info';
     /**
      * Sets — `number`
      *
