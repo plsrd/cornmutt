@@ -1,0 +1,21 @@
+import { SanityDocument, Workout } from '@/types/schema';
+import { ValidationContext } from 'sanity';
+
+export const validateSets = (sets: number, context: ValidationContext) => {
+  const document = context.document as Workout & SanityDocument;
+  if (sets < 1) return 'You must do at least 1 set of an exercise';
+
+  if (document?.useBuilderAssistance) {
+    if (document?.focus?.includes('strength')) {
+      return sets > 0 && sets <= 5
+        ? true
+        : 'Aim for 1-5 sets for strength focused workouts';
+    } else if (document?.focus?.includes('hypertrophy')) {
+      return sets >= 3 && sets <= 5
+        ? true
+        : 'Aim for 3-5 sets for hypertrophy focused workouts';
+    }
+  }
+
+  return true;
+};
