@@ -20,7 +20,7 @@
     "next-sanity": "^5.5.11",
     "react": "^18",
     "react-dom": "^18",
-    "sanity": "^3.21.2-facelift.69",
+    "sanity": "^3.21",
     "styled-components": "^6.1.1"
   },
   "devDependencies": {
@@ -32,7 +32,6 @@
     "eslint-config-next": "14.0.4",
     "postcss": "^8",
     "prettier": "^3.1.0",
-    "sanity-codegen": "^0.9.8",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }
