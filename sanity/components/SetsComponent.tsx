@@ -1,7 +1,8 @@
 import { ExerciseWithReps, SanityKeyed } from '@/types/schema';
 import { Stack, TextInput, Text } from '@sanity/ui';
-import { useCallback, useEffect, useState } from 'react';
-import { InputProps, set, unset, useFormValue } from 'sanity';
+import { Input } from 'postcss';
+import { useEffect, useState } from 'react';
+import { InputProps, set, useFormValue } from 'sanity';
 
 export const SetsComponent = (props: InputProps) => {
   const { path, elementProps, onChange, value } = props;
@@ -14,7 +15,7 @@ export const SetsComponent = (props: InputProps) => {
   useEffect(() => {
     if (parent) {
       const prevIndex =
-        parent.findIndex(({ _key }) => _key === path[1]._key) - 1;
+        parent.findIndex(({ _key }) => _key === (path[1] as any)._key) - 1;
 
       const prev = parent?.[prevIndex];
       const superSet = prev?.superSet || false;

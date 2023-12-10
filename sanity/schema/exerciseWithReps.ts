@@ -1,6 +1,6 @@
 'no store';
 
-import { ValidationContext, defineField } from 'sanity';
+import { defineField } from 'sanity';
 import { filterExercises } from './helpers/filterExercises';
 import { validateSets } from './helpers/validateSets';
 import { RestComponent } from '../components/RestComponent';
@@ -81,7 +81,7 @@ export const exerciseWithReps = defineField({
                 : 'Each exercise should have a rest of at least 30 seconds';
             }),
           components: {
-            field: RestComponent,
+            input: RestComponent,
           },
         },
       ],
