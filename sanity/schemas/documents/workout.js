@@ -1,7 +1,7 @@
 // import workoutTimeCalculator from '../components/workoutTimeCalculator';
 import { filterExistingReferences } from '../../lib/helpers/filterExistingReferences';
 import { defineType, defineField } from 'sanity';
-import { setAuthorInitialValue } from '../components/setAuthorInitialValue';
+import { setAuthorInitialValue } from '../../lib/helpers/setAuthorInitialValue';
 
 export const workout = defineType({
   name: 'workout',

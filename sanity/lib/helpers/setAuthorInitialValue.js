@@ -22,7 +22,10 @@ export const setAuthorInitialValue = async (
       .then(asset =>
         client.createOrReplace({
           ...doc,
-          image: { _type: 'reference', _ref: asset._id },
+          image: {
+            _type: 'image',
+            asset: { _type: 'reference', _ref: asset._id },
+          },
         })
       )
       .catch(e => console.log(e.message));

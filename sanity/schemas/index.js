@@ -12,19 +12,19 @@ import { author } from './author';
 
 export const schemaTypes = [
   //Documents
+  author,
   equipment,
   exercise,
   program,
   target,
-  week,
   workout,
 
   //Objects
-  author,
   content,
   day,
   exerciseWithReps,
   goal,
+  week,
 ];
 
 export default schemaTypes;

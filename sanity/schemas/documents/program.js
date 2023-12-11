@@ -1,5 +1,6 @@
 import { defineArrayMember, defineField, defineType } from 'sanity';
-import { setAuthorInitialValue } from '../components/setAuthorInitialValue';
+import { setAuthorInitialValue } from '../../lib/helpers/setAuthorInitialValue';
+import { filterExistingReferences } from '@/sanity/lib/helpers/filterExistingReferences';
 
 export const program = defineType({
   name: 'program',
@@ -66,7 +67,13 @@ export const program = defineType({
       name: 'equipment',
       title: 'Equipment',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'equipment' }] }],
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'equipment' }],
+          options: { filter: filterExistingReferences },
+        },
+      ],
     }),
     defineField({
       name: 'weeks',
