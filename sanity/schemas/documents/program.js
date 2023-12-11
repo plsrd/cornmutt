@@ -1,4 +1,5 @@
 import { defineArrayMember, defineField, defineType } from 'sanity';
+import { setAuthorInitialValue } from '../components/setAuthorInitialValue';
 
 export const program = defineType({
   name: 'program',
@@ -11,11 +12,11 @@ export const program = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'useBuilderAssistance',
-      title: 'Use Program Builder Assistance?',
-      description:
-        'Add additional fields and validation to help build out your program.',
-      type: 'boolean',
+      name: 'author',
+      title: 'Author',
+      type: 'reference',
+      to: [{ type: 'author' }],
+      initialValue: setAuthorInitialValue,
     }),
     defineField({
       name: 'description',
@@ -23,6 +24,13 @@ export const program = defineType({
       description:
         'High level description of what to expect from this program.',
       type: 'content',
+    }),
+    defineField({
+      name: 'useBuilderAssistance',
+      title: 'Use Program Builder Assistance?',
+      description:
+        'Add additional fields and validation to help build out your program.',
+      type: 'boolean',
     }),
     defineField({
       name: 'meta',
