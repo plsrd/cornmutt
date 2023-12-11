@@ -1,6 +1,7 @@
 // import workoutTimeCalculator from '../components/workoutTimeCalculator';
-import {filterExistingReferences} from '../helpers/filterExistingReferences'
-import {defineType, defineField} from 'sanity'
+import { filterExistingReferences } from '../../lib/helpers/filterExistingReferences';
+import { defineType, defineField } from 'sanity';
+import { setAuthorInitialValue } from '../components/setAuthorInitialValue';
 
 export const workout = defineType({
   name: 'workout',
@@ -11,7 +12,19 @@ export const workout = defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      validation: Rule => Rule.required(),
+    }),
+    defineField({
+      name: 'author',
+      title: 'Author',
+      type: 'reference',
+      to: [{ type: 'author' }],
+      initialValue: setAuthorInitialValue,
+    }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
     }),
     defineField({
       name: 'useBuilderAssistance',
@@ -21,39 +34,21 @@ export const workout = defineType({
       type: 'boolean',
     }),
     defineField({
-      title: 'Focus',
-      name: 'focus',
-      description: 'Select the training focus for this workout.',
-      type: 'array',
-      validation: (Rule) =>
-        Rule.custom((value, {document}) =>
-          document?.useBuilderAssistance &&
-          value?.includes('hypertrophy') &&
-          value?.includes('strength')
-            ? 'Bruh you cannot focus on strength and hypertrophy at the same time. Pick one.'
-            : true,
-        ),
-      of: [{type: 'string'}],
-      options: {
-        list: [
-          {title: 'Hypertrophy', value: 'hypertrophy'},
-          {title: 'Strength', value: 'strength'},
-          {title: 'Conditioning', value: 'conditioning'},
-          {title: 'Mobility', value: 'mobility'},
-        ],
-        layout: 'grid',
-      },
+      name: 'goal',
+      title: 'Goal',
+      type: 'goal',
     }),
     defineField({
-      name: 'target',
+      name: 'targets',
       title: 'Target Muscle Group(s)',
       description:
         'Select the target muscle group(s) for this workout. If no muscle groups are selected, all exercises will be available.',
       type: 'array',
+      hidden: ({ document }) => document?.focus == 'conditioning',
       of: [
         {
           type: 'reference',
-          to: [{type: 'target'}],
+          to: [{ type: 'target' }],
           options: {
             filter: filterExistingReferences,
           },
@@ -69,7 +64,7 @@ export const workout = defineType({
       of: [
         {
           type: 'reference',
-          to: [{type: 'equipment'}],
+          to: [{ type: 'equipment' }],
           options: {
             filter: filterExistingReferences,
           },
@@ -80,7 +75,7 @@ export const workout = defineType({
       name: 'exercises',
       title: 'Exercises',
       type: 'array',
-      of: [{type: 'exerciseWithReps'}],
+      of: [{ type: 'exerciseWithReps' }],
     }),
   ],
-})
+});

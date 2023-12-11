@@ -1,8 +1,9 @@
 import { defineField } from 'sanity';
-import { filterExercises } from './helpers/filterExercises';
-import { validateSets } from './helpers/validateSets';
+import { filterExercises } from '../lib/helpers/filterExercises';
+import { validateSets } from '../lib/helpers/validateSets';
 import { SetsComponent } from './components/SetsComponent';
 import { RestComponent } from './components/RestComponent';
+import { ExercisePreviewComponent } from './components/ExercisePreviewComponent';
 
 export const exerciseWithReps = defineField({
   name: 'exerciseWithReps',
@@ -67,7 +68,7 @@ export const exerciseWithReps = defineField({
               const { path, document } = context;
               const [exercises, info] = path || [];
               const superSet = document?.[exercises]?.find(
-                (exercise) => exercise?._key == info._key
+                exercise => exercise?._key == info._key
               ).superSet;
 
               if (superSet) return true;
@@ -89,4 +90,26 @@ export const exerciseWithReps = defineField({
       type: 'text',
     },
   ],
+  preview: {
+    select: {
+      exercise: 'exercise.name',
+      sets: 'info.sets',
+      reps: 'info.reps',
+      rest: 'info.restTime',
+      superSet: 'superSet',
+      demo: 'exercise.demoImage',
+    },
+    prepare({ exercise, sets, reps, rest, superSet, demo }) {
+      return {
+        title: exercise,
+        subtitle: `${sets} sets of ${reps} reps ${
+          !superSet ? `with ${rest} seconds rest` : ''
+        }`,
+        media: demo,
+      };
+    },
+  },
+  components: {
+    preview: ExercisePreviewComponent,
+  },
 });
