@@ -6,7 +6,7 @@ import { set, useFormValue } from 'sanity';
 export const SetsComponent = props => {
   const { path, elementProps, onChange, value, renderDefault } = props;
   const [prevSets, setPrevSets] = useState();
-  const [isSuperSetMember, setIsSuperSetMember] = useState(false);
+  const [isSupersetMember, setisSupersetMember] = useState(false);
   const parent = useFormValue(path.slice(0, 1));
 
   useEffect(() => {
@@ -15,17 +15,17 @@ export const SetsComponent = props => {
         parent.findIndex(({ _key }) => _key === path[1]._key) - 1;
 
       const prev = parent?.[prevIndex];
-      const superSet = prev?.superSet || false;
+      const superset = prev?.superset || false;
 
-      if (superSet) {
-        setIsSuperSetMember(superSet);
+      if (superset) {
+        setisSupersetMember(superset);
         setPrevSets(prev?.info?.sets);
       }
     }
   }, [parent, path]);
 
   useEffect(() => {
-    if (isSuperSetMember && prevSets !== value) {
+    if (isSupersetMember && prevSets !== value) {
       onChange(set(prevSets));
     }
   });
@@ -34,7 +34,7 @@ export const SetsComponent = props => {
     ...props,
     elementProps: {
       ...elementProps,
-      readOnly: isSuperSetMember,
+      readOnly: isSupersetMember,
     },
   };
 

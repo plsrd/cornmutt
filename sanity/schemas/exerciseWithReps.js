@@ -1,9 +1,11 @@
 import { defineField } from 'sanity';
+import { AccessDeniedIcon } from '@sanity/icons';
 import { filterExercises } from '../lib/helpers/filterExercises';
 import { validateSets } from '../lib/helpers/validateSets';
 import { SetsComponent } from './components/SetsComponent';
 import { RestComponent } from './components/RestComponent';
 import { ExercisePreviewComponent } from './components/ExercisePreviewComponent';
+import { validateRest } from '../lib/helpers/validateRest';
 
 export const exerciseWithReps = defineField({
   name: 'exerciseWithReps',
@@ -22,7 +24,7 @@ export const exerciseWithReps = defineField({
       },
     },
     {
-      name: 'superSet',
+      name: 'superset',
       title: 'Superset with next exercise?',
       description: 'If yes, the next exercise will be performed immediately',
       type: 'boolean',
@@ -63,20 +65,7 @@ export const exerciseWithReps = defineField({
           title: 'Rest',
           description: 'Rest time in seconds',
           type: 'number',
-          validation: Rule =>
-            Rule.custom((value, context) => {
-              const { path, document } = context;
-              const [exercises, info] = path || [];
-              const superSet = document?.[exercises]?.find(
-                exercise => exercise?._key == info._key
-              ).superSet;
-
-              if (superSet) return true;
-
-              return value >= 30
-                ? true
-                : 'Each exercise should have a rest of at least 30 seconds';
-            }),
+          validation: Rule => Rule.custom(validateRest),
           components: {
             input: RestComponent,
           },
@@ -93,19 +82,24 @@ export const exerciseWithReps = defineField({
   preview: {
     select: {
       exercise: 'exercise.name',
-      sets: 'info.sets',
-      reps: 'info.reps',
-      rest: 'info.restTime',
-      superSet: 'superSet',
+      info: 'info',
+      superset: 'superset',
       demo: 'exercise.demoImage',
     },
-    prepare({ exercise, sets, reps, rest, superSet, demo }) {
+    prepare({ exercise, info = {}, superset, demo }) {
+      const { sets, reps, rest } = info;
+
+      const subtitle =
+        sets && reps
+          ? `${sets} sets of ${reps} reps`
+          : 'Exercise configuration not complete';
+
       return {
-        title: exercise,
-        subtitle: `${sets} sets of ${reps} reps ${
-          !superSet ? `with ${rest} seconds rest` : ''
-        }`,
-        media: demo,
+        title: exercise ? exercise : 'Exercise not selected',
+        subtitle,
+        media: exercise ? demo : AccessDeniedIcon,
+        info,
+        superset,
       };
     },
   },
