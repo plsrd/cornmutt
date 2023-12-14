@@ -52,13 +52,12 @@ export const exerciseWithReps = defineField({
           title: 'Reps',
           description: 'Reps per set',
           type: 'number',
-          validation: Rule =>
-            Rule.min(1)
-              .error('You must do at least 1 set of an exercise')
-              .max(25)
-              .warning(
-                'That is a lot of reps! Are you sure you want to do that many?'
-              ),
+          validation: Rule => [
+            Rule.required().min(1).error('You must enter a number of reps'),
+            Rule.max(25).warning(
+              'That is a lot of reps! Are you sure you want to do that many?'
+            ),
+          ],
         },
         {
           name: 'restTime',
@@ -85,9 +84,10 @@ export const exerciseWithReps = defineField({
       info: 'info',
       superset: 'superset',
       demo: 'exercise.demoImage',
+      _key: '_key',
     },
-    prepare({ exercise, info = {}, superset, demo }) {
-      const { sets, reps, rest } = info;
+    prepare({ info = {}, exercise, demo, ...restProps }) {
+      const { sets, reps } = info;
 
       const subtitle =
         sets && reps
@@ -98,8 +98,7 @@ export const exerciseWithReps = defineField({
         title: exercise ? exercise : 'Exercise not selected',
         subtitle,
         media: exercise ? demo : AccessDeniedIcon,
-        info,
-        superset,
+        ...restProps,
       };
     },
   },

@@ -1,9 +1,9 @@
 import { defineArrayMember, defineField } from 'sanity';
 
-export const content = defineField({
-  name: 'content',
+export const blockContent = defineField({
+  name: 'blockContent',
   type: 'array',
-  title: 'Content',
+  title: 'Block Content',
   of: [
     defineArrayMember({
       type: 'block',

@@ -16,7 +16,7 @@ export const author = {
     {
       name: 'bio',
       title: 'Bio',
-      type: 'content',
+      type: 'blockContent',
     },
   ],
 };

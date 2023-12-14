@@ -24,7 +24,7 @@ export const workout = defineType({
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'text',
+      type: 'blockContent',
     }),
     defineField({
       name: 'useBuilderAssistance',
@@ -42,7 +42,7 @@ export const workout = defineType({
       name: 'targets',
       title: 'Target Muscle Group(s)',
       description:
-        'Select the target muscle group(s) for this workout. If no muscle groups are selected, all exercises will be available.',
+        'Select the target muscle group(s) for this workout to specific muscles. If no muscle groups are selected, all exercises will be available.',
       type: 'array',
       hidden: ({ document }) => document?.focus == 'conditioning',
       of: [
@@ -59,7 +59,7 @@ export const workout = defineType({
       name: 'equipment',
       title: 'Equipment',
       description:
-        'Select equipment to limit the exercises in this workout. If no equipment is selected, all exercises will be available.',
+        'Select equipment to limit the exercises in this workout to specific equipment. If no equipment is selected, all exercises will be available.',
       type: 'array',
       of: [
         {

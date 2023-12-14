@@ -24,7 +24,7 @@ export const program = defineType({
       title: 'Description',
       description:
         'High level description of what to expect from this program.',
-      type: 'content',
+      type: 'blockContent',
     }),
     defineField({
       name: 'useBuilderAssistance',

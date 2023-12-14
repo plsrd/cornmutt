@@ -1,7 +1,7 @@
 import { exercise } from './documents/exercise';
 import { equipment } from './documents/equipment';
 import { target } from './documents/target';
-import { content } from './content';
+import { blockContent } from './blockContent';
 import { program } from './documents/program';
 import { workout } from './documents/workout';
 import { exerciseWithReps } from './exerciseWithReps';
@@ -20,7 +20,7 @@ export const schemaTypes = [
   workout,
 
   //Objects
-  content,
+  blockContent,
   day,
   exerciseWithReps,
   goal,

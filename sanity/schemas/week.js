@@ -32,7 +32,7 @@ export const week = defineType({
     defineField({
       name: 'notes',
       title: 'Notes',
-      type: 'content',
+      type: 'blockContent',
       fieldset: 'notes',
     }),
   ],
