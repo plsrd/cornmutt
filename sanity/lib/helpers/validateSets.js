@@ -1,5 +1,5 @@
 export const validateSets = (sets, { document }) => {
-  if (sets < 1) return 'You must do at least 1 set of an exercise';
+  if (!sets || sets < 1) return 'You must do at least 1 set of an exercise';
 
   if (document?.useBuilderAssistance) {
     if (document?.goal?.includes('strength')) {

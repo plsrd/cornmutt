@@ -28,7 +28,7 @@ export const SetsComponent = props => {
     if (isSupersetMember && prevSets !== value) {
       onChange(set(prevSets));
     }
-  });
+  }, [isSupersetMember, prevSets, value, onChange]);
 
   const fwdProps = {
     ...props,

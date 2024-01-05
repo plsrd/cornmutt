@@ -46,7 +46,7 @@ export const exerciseWithReps = defineField({
           title: 'Sets',
           description: 'Sets per exercise',
           type: 'number',
-          validation: Rule => Rule.custom(validateSets).warning(),
+          validation: Rule => Rule.custom(validateSets),
           components: {
             input: SetsComponent,
           },
