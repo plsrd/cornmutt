@@ -1,13 +1,19 @@
-export const validateRest = (value, context) => {
-  const { path, document } = context;
+export const validateRest = (value, { path, document }) => {
   const [exercises, info] = path || [];
+  const goals = document?.goal;
   const superset = document?.[exercises]?.find(
     exercise => exercise?._key == info._key
   ).superset;
 
-  if (superset) return true;
+  if (superset || !goals) return true;
 
-  return value >= 30
-    ? true
-    : 'Each exercise should have a rest of at least 30 seconds';
+  if (goals.includes('strength')) {
+    return value >= 120 && value <= 300
+      ? true
+      : 'Each exercise should have a rest period between 2 and 5 minutes when training for strength';
+  } else if (goals.includes('hypertrophy')) {
+    return value >= 30 && value <= 90
+      ? true
+      : 'Each exercise should have a rest period between 30 and 90 seconds when training for hypertrophy';
+  }
 };
