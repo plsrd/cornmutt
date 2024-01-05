@@ -46,12 +46,16 @@ export const exercise = defineType({
         Rule.custom(async ({ asset: { _ref } }, { getClient }) => {
           const client = getClient({ apiVersion: '2023-12-12' });
 
-          const asset = await client.fetch(
-            `*[_type == "sanity.imageAsset" && _id == $_ref][0]`,
+          const assetSize = await client.fetch(
+            `*[_type == "sanity.imageAsset" && _id == $_ref][0].size`,
             { _ref }
           );
 
-          console.log(asset);
+          if (assetSize > 1000000) {
+            return 'Image must be less than 1MB';
+          }
+
+          return true;
         }),
     }),
   ],

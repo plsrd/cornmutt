@@ -10,7 +10,7 @@ export const goal = defineType({
       const { useBuilderAssistance } = document;
       if (useBuilderAssistance) {
         if (value.includes('hypertrophy') && value.includes('strength'))
-          return 'A program cannot be both hypertrophy and strength focused.';
+          return 'A workout cannot be both hypertrophy and strength focused.';
       }
 
       return true;

@@ -7,6 +7,7 @@ import { RestComponent } from './components/RestComponent';
 import { ExercisePreviewComponent } from './components/ExercisePreviewComponent';
 import { validateRest } from '../lib/helpers/validateRest';
 import { validateExercise } from '../lib/helpers/validateExercise';
+import { validateReps } from '../lib/helpers/validateReps';
 
 export const exerciseWithReps = defineField({
   name: 'exerciseWithReps',
@@ -56,12 +57,7 @@ export const exerciseWithReps = defineField({
           title: 'Reps',
           description: 'Reps per set',
           type: 'number',
-          validation: Rule => [
-            Rule.required().min(1).error('You must enter a number of reps'),
-            Rule.max(25).warning(
-              'That is a lot of reps! Are you sure you want to do that many?'
-            ),
-          ],
+          validation: Rule => Rule.custom(validateReps),
         },
         {
           name: 'restTime',
