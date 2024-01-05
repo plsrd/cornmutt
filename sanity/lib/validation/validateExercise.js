@@ -1,28 +1,36 @@
 import { groq } from 'next-sanity';
 
-export const validateExercise = async (value, { getClient, document }) => {
+export const validateExercise = async (exercise, { getClient, document }) => {
   const client = getClient({ apiVersion: '2023-12-12' });
 
-  const { targets = [], equipment = [], useBuilderAssistance } = document;
+  const { targets, equipment, useBuilderAssistance } = document;
 
   if (!useBuilderAssistance) return true;
 
-  if (!targets.length > 0 || !equipment.length > 0) {
-    return 'You must select at least one target muscle group and one piece of equipment to use the Workout Builder Assistance';
-  }
+  if (!targets || targets.length < 1)
+    return 'Select target muscle group(s) before adding exercises or turn off Builder Assistance.';
 
-  const isMatch = await client.fetch(
+  if (!equipment || equipment.length < 1)
+    return 'Select equipment before adding exercises or turn off Builder Assistance.';
+
+  const { isTargetMatch, isEquipmentMatch } = await client.fetch(
     groq`*[_type == "exercise" && _id == $id][0]{
-        "isMatch": target._ref in $targets[]._ref && equipment._ref in $equipment[]._ref,
+        "isTargetMatch": target._ref in $targets[]._ref,
+        "isEquipmentMatch": equipment._ref in $equipment[]._ref,
       }`,
     {
-      id: value._ref,
+      id: exercise._ref,
       targets,
       equipment,
     }
-  ).isMatch;
+  );
 
-  return isMatch
+  const targetErrorMessage = 'Exercise does not match target muscle group(s).';
+  const equipmentErrorMessage = 'Exercise does not match equipment.';
+
+  return isTargetMatch && isEquipmentMatch
     ? true
-    : 'This exercise does not match your target muscle groups and/or equipment';
+    : `${!isTargetMatch ? targetErrorMessage : ''} ${
+        !isEquipmentMatch ? equipmentErrorMessage : ''
+      }`;
 };

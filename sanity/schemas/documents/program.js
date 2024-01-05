@@ -45,9 +45,9 @@ export const program = defineType({
       hidden: ({ document }) => !document?.useBuilderAssistance,
       fields: [
         defineField({
-          name: 'goal',
-          title: 'Goal',
-          type: 'goal',
+          name: 'goals',
+          title: 'Goals',
+          type: 'goals',
         }),
         defineField({
           name: 'length',

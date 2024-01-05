@@ -34,10 +34,10 @@ export const workout = defineType({
       type: 'boolean',
     }),
     defineField({
-      name: 'goal',
-      title: 'Goal',
+      name: 'goals',
+      title: 'Goals',
       description: `Select the goal(s) for this workout. If you've enabled Builder Assistance, this will be taken into account when validating sets and reps.`,
-      type: 'goal',
+      type: 'goals',
     }),
     defineField({
       name: 'targets',
@@ -45,7 +45,7 @@ export const workout = defineType({
       description:
         'Select the target muscle group(s) for this workout to specific muscles. If no muscle groups are selected, no filter will be applied to the exercises available.',
       type: 'array',
-      hidden: ({ document }) => document?.focus == 'conditioning',
+      hidden: ({ document }) => document?.goal == 'conditioning',
       of: [
         {
           type: 'reference',

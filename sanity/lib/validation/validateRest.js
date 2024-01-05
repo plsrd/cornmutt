@@ -1,6 +1,6 @@
 export const validateRest = (value, { path, document }) => {
   const [exercises, info] = path || [];
-  const goals = document?.goal;
+  const goals = document?.goals;
   const superset = document?.[exercises]?.find(
     exercise => exercise?._key == info._key
   ).superset;
@@ -16,4 +16,6 @@ export const validateRest = (value, { path, document }) => {
       ? true
       : 'Each exercise should have a rest period between 30 and 90 seconds when training for hypertrophy';
   }
+
+  return true;
 };

@@ -6,7 +6,7 @@ import { program } from './documents/program';
 import { workout } from './documents/workout';
 import { exerciseWithReps } from './exerciseWithReps';
 import { week } from './week';
-import { goal } from './goal';
+import { goals } from './goals';
 import { day } from './day';
 import { author } from './author';
 
@@ -23,7 +23,7 @@ export const schemaTypes = [
   blockContent,
   day,
   exerciseWithReps,
-  goal,
+  goals,
   week,
 ];
 
