@@ -6,10 +6,12 @@ export const goal = defineType({
   type: 'array',
   of: [{ type: 'string' }],
   validation: Rule =>
-    Rule.custom((value, { document }) => {
+    Rule.custom((goal, { document }) => {
       const { useBuilderAssistance } = document;
+      if (!goal || goal.length < 1) return 'You must select a goal.';
+
       if (useBuilderAssistance) {
-        if (value.includes('hypertrophy') && value.includes('strength'))
+        if (goal.includes('hypertrophy') && goal.includes('strength'))
           return 'A workout cannot be both hypertrophy and strength focused.';
       }
 

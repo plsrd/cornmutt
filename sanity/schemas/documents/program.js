@@ -1,6 +1,6 @@
 import { defineArrayMember, defineField, defineType } from 'sanity';
-import { setAuthorInitialValue } from '../../lib/helpers/setAuthorInitialValue';
-import { filterExistingReferences } from '@/sanity/lib/helpers/filterExistingReferences';
+import { setAuthorInitialValue } from '../../lib/utils/setAuthorInitialValue';
+import { filterExistingReferences } from '@/sanity/lib/filters/filterExistingReferences';
 
 export const program = defineType({
   name: 'program',

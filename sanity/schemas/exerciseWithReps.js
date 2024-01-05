@@ -1,13 +1,13 @@
 import { defineField } from 'sanity';
 import { AccessDeniedIcon } from '@sanity/icons';
-import { filterExercises } from '../lib/helpers/filterExercises';
-import { validateSets } from '../lib/helpers/validateSets';
+import { filterExercises } from '../lib/filters/filterExercises';
+import { validateSets } from '../lib/validation/validateSets';
 import { SetsComponent } from './components/SetsComponent';
 import { RestComponent } from './components/RestComponent';
 import { ExercisePreviewComponent } from './components/ExercisePreviewComponent';
-import { validateRest } from '../lib/helpers/validateRest';
-import { validateExercise } from '../lib/helpers/validateExercise';
-import { validateReps } from '../lib/helpers/validateReps';
+import { validateRest } from '../lib/validation/validateRest';
+import { validateExercise } from '../lib/validation/validateExercise';
+import { validateReps } from '../lib/validation/validateReps';
 
 export const exerciseWithReps = defineField({
   name: 'exerciseWithReps',
