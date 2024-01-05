@@ -6,6 +6,7 @@ import { SetsComponent } from './components/SetsComponent';
 import { RestComponent } from './components/RestComponent';
 import { ExercisePreviewComponent } from './components/ExercisePreviewComponent';
 import { validateRest } from '../lib/helpers/validateRest';
+import { validateExercise } from '../lib/helpers/validateExercise';
 
 export const exerciseWithReps = defineField({
   name: 'exerciseWithReps',
@@ -18,7 +19,10 @@ export const exerciseWithReps = defineField({
       description: `Not seeing the exercises you'd like? Try adjusting your target muscle groups and equipment.`,
       type: 'reference',
       to: { type: 'exercise' },
-      validation: Rule => Rule.required().error('You must select an exercise'),
+      validation: Rule => [
+        Rule.required().error('You must select an exercise'),
+        Rule.custom(validateExercise),
+      ],
       options: {
         filter: filterExercises,
       },

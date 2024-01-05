@@ -20,8 +20,7 @@ export const exercise = defineType({
     defineField({
       name: 'equipment',
       title: 'Equipment',
-      description:
-        'Select the piece of equipment needed for this exercise',
+      description: 'Select the piece of equipment needed for this exercise',
       type: 'reference',
       to: [{ type: 'equipment' }],
     }),
@@ -43,6 +42,17 @@ export const exercise = defineType({
       title: 'Demo Image',
       description: 'Upload images for this exercise',
       type: 'image',
+      validation: Rule =>
+        Rule.custom(async ({ asset: { _ref } }, { getClient }) => {
+          const client = getClient({ apiVersion: '2023-12-12' });
+
+          const asset = await client.fetch(
+            `*[_type == "sanity.imageAsset" && _id == $_ref][0]`,
+            { _ref }
+          );
+
+          console.log(asset);
+        }),
     }),
   ],
 });
