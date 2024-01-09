@@ -1,5 +1,7 @@
 import { defineType, defineField } from 'sanity';
 
+import { ArrayOfObjectsInput } from 'sanity';
+
 export const week = defineType({
   name: 'week',
   title: 'Week',
@@ -36,4 +38,5 @@ export const week = defineType({
       fieldset: 'notes',
     }),
   ],
+  components: {},
 });

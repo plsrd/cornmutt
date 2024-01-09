@@ -1,10 +1,13 @@
 import { defineArrayMember, defineType, defineField } from 'sanity';
-import { program } from './documents/program';
+import { DayWrapper, WorkoutTitleComponent } from './components/DayWrapper';
 
 export const day = defineType({
   name: 'day',
   title: 'Day',
   type: 'object',
+  components: {
+    input: DayWrapper,
+  },
   fieldsets: [
     {
       name: 'notes',
